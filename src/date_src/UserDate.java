@@ -9,16 +9,16 @@ public final class UserDate {
     private int day;
     private int month;
     private int year;
-    private int this_year = Calendar.getInstance().get(1);
+    private int thisYear = Calendar.getInstance().get(1);
 
     public UserDate(int day, int month, int year) {
         this.validateDate(String.format("%d-%d-%d", day, month, year));
-        if (year >= 1900 && year <= this.this_year) {
+        if (year >= 1900 && year <= this.thisYear) {
             this.day = day;
             this.month = month;
             this.year = year;
         } else {
-            throw new IllegalArgumentException("Incorrect year number (must be within 1900 or " + this.this_year + ")");
+            throw new IllegalArgumentException("Incorrect year number (must be within 1900 or " + this.thisYear + ")");
         }
     }
 
