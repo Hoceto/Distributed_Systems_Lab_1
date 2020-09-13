@@ -1,44 +1,44 @@
-package Worker_service;
+package worker_service;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.UUID;
 
-public class Worker_config {
-    private Worker_management manager;
-    private Map<Integer, String> position_map = new HashMap();
-    private static int worker_count = 0;
+public final class WorkerConfig {
+    private WorkerManagement manager;
+    private Map<Integer, String> positionMap;
 
-    public Worker_config(Worker_management manager) {
+    public WorkerConfig(WorkerManagement manager) {
         this.manager = manager;
-        this.position_map.put(1, "Операционист");
-        this.position_map.put(2, "Менеджер по кредитам");
+        positionMap = new HashMap<>();
+        this.positionMap.put(1, "Операционист");
+        this.positionMap.put(2, "Менеджер по кредитам");
     }
 
     public Worker registrateWorker(String name, String surname, int position) {
         Worker worker = new Worker();
-        ++worker_count;
-        worker.setPid(String.valueOf(worker_count));
+        worker.setWorkerId();
         if (validateName(name)) {
-            worker.setName(name);
+            worker.setWorkerName(name);
         }
 
         if (validateSurname(surname)) {
-            worker.setSurname(surname);
+            worker.setWorkerSurname(surname);
         }
 
         worker.setPosition(position);
-        worker.setPosition_name((String)this.position_map.get(position));
+        worker.setPositionName(this.positionMap.get(position));
         this.manager.addWorker(worker);
         return worker;
     }
 
-    public void removeWorker(String id) {
+    public void removeWorker(UUID id) {
         this.manager.removeWorker(id);
     }
 
-    public Worker getWorker(String id) {
+    public Worker getWorker(UUID id) {
         return this.manager.getWorker(id);
     }
 
@@ -58,19 +58,19 @@ public class Worker_config {
         }
     }
 
-    public void addWage(String work_id, int money) {
-        Worker worker = this.manager.getWorker(work_id);
+    public void addWage(UUID workId, int money) {
+        Worker worker = this.manager.getWorker(workId);
         worker.setWage(worker.getWage() + money);
     }
 
     public void printWorkersInfo() {
-        Map<String, Worker> worker_storage = this.manager.getWorker_storage();
+        Map<UUID, Worker> workerStorage = this.manager.getWorkerStorage();
         int iter = 1;
 
-        for(Iterator var3 = worker_storage.entrySet().iterator(); var3.hasNext(); ++iter) {
-            Entry<String, Worker> entry = (Entry)var3.next();
-            Worker iter_worker = (Worker)entry.getValue();
-            System.out.println(String.format("\t%d. ID: %s, должность: %s, зарплата: %d", iter, iter_worker.getPid(), iter_worker.getPosition_name(), iter_worker.getWage()));
+        for(Iterator var3 = workerStorage.entrySet().iterator(); var3.hasNext(); ++iter) {
+            Entry entry = (Entry)var3.next();
+            Worker iterWorker = (Worker)entry.getValue();
+            System.out.println(String.format("\t%d. ID: %s, должность: %s, зарплата: %d", iter, iterWorker.getWorkerId(), iterWorker.getPositionName(), iterWorker.getWage()));
         }
 
         if (iter == 1) {

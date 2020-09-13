@@ -1,17 +1,18 @@
-package User_service;
+package user_service;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class User_management {
-    private Map<UUID, User> user_storage = new HashMap();
+public final class UserManagement {
+    private Map<UUID, User> user_storage;
 
-    public User_management() {
+    public UserManagement() {
+        user_storage = new HashMap<>();
     }
 
     void addUser(User user) {
-        this.user_storage.put(user.getUser_id(), user);
+        this.user_storage.put(user.getUserId(), user);
     }
 
     void removeUser(UUID uuid) {
@@ -22,7 +23,7 @@ public class User_management {
         return (User)this.user_storage.get(uuid);
     }
 
-    public Map<UUID, User> getUserStorage() {
+    Map<UUID, User> getUserStorage() {
         return this.user_storage;
     }
 }

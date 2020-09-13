@@ -1,17 +1,17 @@
-package Date_src;
+package date_src;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class User_date {
+public final class UserDate {
     private int day;
     private int month;
     private int year;
     private int this_year = Calendar.getInstance().get(1);
 
-    public User_date(int day, int month, int year) {
+    public UserDate(int day, int month, int year) {
         this.validateDate(String.format("%d-%d-%d", day, month, year));
         if (year >= 1900 && year <= this.this_year) {
             this.day = day;

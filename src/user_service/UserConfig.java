@@ -1,36 +1,36 @@
-package User_service;
+package user_service;
 
-import Date_src.User_date;
+import date_src.UserDate;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.Map.Entry;
 
-public class User_config {
-    private User_management manager;
+public final class UserConfig {
+    private UserManagement manager;
 
-    public User_config(User_management manager) {
+    public UserConfig(UserManagement manager) {
         this.manager = manager;
     }
 
     public User registrateUser(int day, int month, int year, String name, String surname, String passid, String phone_num, String email, String TIN, int balance) {
         User user = new User();
-        User_date userdate = new User_date(day, month, year);
+        UserDate userdate = new UserDate(day, month, year);
         user.setBirthday_date(userdate);
         if (validateName(name)) {
-            user.setName(name);
+            user.setUserName(name);
         }
 
         if (validateSurname(surname)) {
-            user.setSurname(surname);
+            user.setUserSurname(surname);
         }
 
-        user.setPassid(passid);
-        user.setPhone_number(phone_num);
-        user.setTIN(TIN);
-        user.setEmail(email);
-        user.setBalance(balance);
+        user.setUserPassportId(passid);
+        user.setUserPhoneNumber(phone_num);
+        user.setUserTin(TIN);
+        user.setUserEmail(email);
+        user.setUserBalance(balance);
         this.manager.addUser(user);
         return user;
     }
@@ -61,7 +61,7 @@ public class User_config {
 
     public void changeBalance(UUID id, int diff) {
         User user = this.manager.getUser(id);
-        user.setBalance(user.getBalance() + diff);
+        user.setUserBalance(user.getUserBalance() + diff);
     }
 
     public void printUsersInfo() {
@@ -71,7 +71,7 @@ public class User_config {
         for(Iterator var3 = user_storage.entrySet().iterator(); var3.hasNext(); ++iter) {
             Entry<UUID, User> entry = (Entry)var3.next();
             User iter_user = (User)entry.getValue();
-            System.out.println(String.format("\t%d. %s. Кредитных карт: %d, депозит: %s", iter, iter_user.getUser_id(), iter_user.getCCList().size(), Objects.isNull(iter_user.getDeposit_id()) ? "отсутсвует" : "наличен"));
+            System.out.println(String.format("\t%d. %s. Кредитных карт: %d, депозит: %s", iter, iter_user.getUserId(), iter_user.getCCList().size(), Objects.isNull(iter_user.getUserDepositId()) ? "отсутсвует" : "наличен"));
         }
 
         if (iter == 1) {

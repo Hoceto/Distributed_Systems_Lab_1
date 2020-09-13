@@ -1,9 +1,9 @@
-package General_money_account;
+package general_money_account;
 
-public class General_account {
+public final class GeneralAccount {
     private int money;
 
-    public General_account(int money) {
+    public GeneralAccount(int money) {
         this.money = money;
     }
 
